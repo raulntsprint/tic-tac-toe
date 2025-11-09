@@ -53,6 +53,7 @@ class SessionManager:
             del self.sessions[session_id]
             return True
         return False
+
     def session_exists(self, session_id: str) -> bool:
         """
         Check if a session exists.
@@ -64,4 +65,3 @@ class SessionManager:
             bool: True if session exists, False otherwise
         """
         return session_id in self.sessions
-

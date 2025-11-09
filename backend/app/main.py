@@ -220,4 +220,3 @@ async def delete_game(session_id: str) -> dict:
         return {"message": "Game session deleted successfully"}
     else:
         raise HTTPException(status_code=404, detail="Session not found")
-

@@ -55,4 +55,3 @@ class GameResponse(BaseModel):
     message: Optional[str] = Field(
         default=None, description="Additional information"
     )
-

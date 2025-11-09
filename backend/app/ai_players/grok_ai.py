@@ -165,4 +165,3 @@ Respond with JSON: {{"row": <0-2>, "col": <0-2>}}
         if row < 0 or row > 2 or col < 0 or col > 2:
             return False
         return board[row][col] == ""
-
