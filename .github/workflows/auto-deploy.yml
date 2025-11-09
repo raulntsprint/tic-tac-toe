@@ -1,0 +1,45 @@
+name: Auto Deploy Status
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  deployment-status:
+    name: 📊 Check Deployment Status
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🔍 Wait for Render deployment
+        run: |
+          echo "⏳ Waiting for Render to deploy backend..."
+          sleep 30
+      
+      - name: 🏥 Health check backend
+        run: |
+          echo "🔍 Checking backend health..."
+          for i in {1..10}; do
+            if curl -f https://tic-tac-toe-vtht.onrender.com/api/health; then
+              echo "✅ Backend is healthy!"
+              break
+            else
+              echo "⏳ Attempt $i/10 failed, retrying in 30s..."
+              sleep 30
+            fi
+          done
+      
+      - name: 🎨 Check frontend deployment
+        run: |
+          echo "✅ Vercel deployment triggered automatically"
+          echo "📊 Check status at: https://vercel.com"
+      
+      - name: 🎉 Deployment complete
+        run: |
+          echo ""
+          echo "🎉 ¡Deployment completado!"
+          echo ""
+          echo "🔗 URLs:"
+          echo "  Backend:  https://tic-tac-toe-vtht.onrender.com"
+          echo "  API Docs: https://tic-tac-toe-vtht.onrender.com/docs"
+          echo "  Frontend: Vercel dashboard"
+

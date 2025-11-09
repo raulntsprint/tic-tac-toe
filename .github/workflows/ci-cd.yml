@@ -1,0 +1,125 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  # Test Backend
+  test-backend:
+    name: 🧪 Test Backend
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+      
+      - name: 🐍 Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+          cache-dependency-path: backend/requirements.txt
+      
+      - name: 📦 Install dependencies
+        run: |
+          cd backend
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: 🧪 Run tests with coverage
+        run: |
+          cd backend
+          pytest --cov=app --cov-report=term --cov-report=xml
+      
+      - name: 📊 Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./backend/coverage.xml
+          flags: backend
+          fail_ci_if_error: false
+  
+  # Test Frontend Build
+  test-frontend:
+    name: 🎨 Test Frontend Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+      
+      - name: 📦 Set up Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      
+      - name: 📦 Install dependencies
+        run: |
+          cd frontend
+          npm ci
+      
+      - name: 🏗️ Build frontend
+        run: |
+          cd frontend
+          npm run build
+        env:
+          VITE_API_URL: https://tic-tac-toe-vtht.onrender.com
+      
+      - name: 📊 Check build output
+        run: |
+          cd frontend
+          ls -la dist/
+  
+  # Lint and Code Quality
+  code-quality:
+    name: 🔍 Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+      
+      - name: 🐍 Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: 📦 Install linting tools
+        run: |
+          pip install flake8 black isort
+      
+      - name: 🔍 Check Python code style
+        run: |
+          cd backend
+          flake8 app --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 app --count --max-complexity=10 --max-line-length=127 --statistics
+      
+      - name: 🎨 Check code formatting
+        run: |
+          cd backend
+          black --check app
+        continue-on-error: true
+  
+  # Deployment notification
+  deploy-notification:
+    name: 🚀 Deploy Notification
+    needs: [test-backend, test-frontend]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: 🎉 All tests passed
+        run: |
+          echo "✅ All tests passed successfully!"
+          echo "🚀 Render will auto-deploy backend"
+          echo "🎨 Vercel will auto-deploy frontend"
+          echo ""
+          echo "📊 Deployment Status:"
+          echo "Backend:  https://tic-tac-toe-vtht.onrender.com"
+          echo "Frontend: Check Vercel dashboard"
+          echo "API Docs: https://tic-tac-toe-vtht.onrender.com/docs"
+
