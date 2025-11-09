@@ -70,7 +70,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>🎮 Tic Tac Toe</h1>
-        <p className="subtitle">SSE Code Screen - Advanced AI Challenge</p>
+        <p className="subtitle">SSE Code Screen - Advanced AI Challenge.</p>
       </header>
 
       <main className="app-main">
