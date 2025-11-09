@@ -55,7 +55,7 @@ class TestTicTacToeGame:
         """Test winning condition for a row."""
         game = TicTacToeGame()
         game.board = [["X", "X", "X"], ["O", "O", ""], ["", "", ""]]
-        game._check_winner()
+        game.check_winner()
         assert game.winner == "X"
         assert game.game_over is True
 
@@ -63,7 +63,7 @@ class TestTicTacToeGame:
         """Test winning condition for a column."""
         game = TicTacToeGame()
         game.board = [["O", "X", ""], ["O", "X", ""], ["O", "", ""]]
-        game._check_winner()
+        game.check_winner()
         assert game.winner == "O"
         assert game.game_over is True
 
@@ -71,7 +71,7 @@ class TestTicTacToeGame:
         """Test winning condition for main diagonal."""
         game = TicTacToeGame()
         game.board = [["X", "O", "O"], ["", "X", ""], ["", "", "X"]]
-        game._check_winner()
+        game.check_winner()
         assert game.winner == "X"
         assert game.game_over is True
 
@@ -79,7 +79,7 @@ class TestTicTacToeGame:
         """Test winning condition for anti-diagonal."""
         game = TicTacToeGame()
         game.board = [["X", "X", "O"], ["X", "O", ""], ["O", "", ""]]
-        game._check_winner()
+        game.check_winner()
         assert game.winner == "O"
         assert game.game_over is True
 
@@ -87,7 +87,7 @@ class TestTicTacToeGame:
         """Test draw condition."""
         game = TicTacToeGame()
         game.board = [["X", "O", "X"], ["X", "O", "O"], ["O", "X", "X"]]
-        game._check_winner()
+        game.check_winner()
         assert game.winner is None
         assert game.is_draw is True
         assert game.game_over is True

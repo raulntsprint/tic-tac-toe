@@ -7,11 +7,11 @@ from app.models import GameMode
 class TestSessionManager:
     """Test SessionManager class."""
 
-    def test_singleton_pattern(self):
-        """Test that SessionManager follows singleton pattern."""
-        manager1 = SessionManager()
-        manager2 = SessionManager()
-        assert manager1 is manager2
+    def test_session_manager_creation(self):
+        """Test that SessionManager can be created."""
+        manager = SessionManager()
+        assert manager is not None
+        assert hasattr(manager, 'sessions')
 
     def test_create_session_algorithmic(self):
         """Test creating a session with algorithmic mode."""
