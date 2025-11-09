@@ -15,7 +15,7 @@ class Player(str, Enum):
     """Player enumeration."""
 
     X = "X"
-    O = "O"
+    O = "O"  # noqa: E741
     EMPTY = ""
 
 

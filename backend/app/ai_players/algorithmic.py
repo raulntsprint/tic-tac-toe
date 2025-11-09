@@ -44,7 +44,7 @@ class MinimaxPlayer:
 
         return best_move
 
-    def _minimax(
+    def _minimax(  # noqa: C901
         self,
         board: List[List[str]],
         depth: int,
@@ -149,4 +149,3 @@ class MinimaxPlayer:
                 if cell == "":
                     return False
         return True
-

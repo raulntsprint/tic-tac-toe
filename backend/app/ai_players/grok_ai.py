@@ -113,7 +113,7 @@ class GrokAIPlayer:
                 move_data = json.loads(json_str)
             else:
                 move_data = json.loads(content)
-            
+
             row = int(move_data["row"])
             col = int(move_data["col"])
 

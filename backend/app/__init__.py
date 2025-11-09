@@ -1,2 +1,1 @@
-"""Tic Tac Toe FastAPI Application."""
-
+"""Tic Tac Toe backend application."""

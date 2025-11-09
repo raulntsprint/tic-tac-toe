@@ -1,2 +1,1 @@
-"""AI players for Tic Tac Toe."""
-
+"""AI players module."""

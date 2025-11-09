@@ -139,4 +139,3 @@ class TicTacToeGame:
             List[List[str]]: Copy of the board
         """
         return [row[:] for row in self.board]
-
