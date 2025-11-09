@@ -1,0 +1,48 @@
+.game-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(74, 144, 226, 0.05);
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-group label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.new-game-button {
+  background-color: var(--success-color);
+  font-weight: 600;
+}
+
+.new-game-button:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+@media (max-width: 640px) {
+  .game-controls {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .control-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .new-game-button {
+    width: 100%;
+  }
+}
+
