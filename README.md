@@ -232,11 +232,50 @@ Response: { "message": "Game session deleted successfully" }
 
 ## 🧪 Testing
 
-Run backend tests:
+### Running Tests
+
+The project includes a comprehensive test suite with 80+ tests covering:
+- **Unit tests**: Models, game logic, AI algorithms
+- **Integration tests**: API endpoints, session management
+- **Async tests**: Groq AI integration with mocks
+
+**Run all tests:**
 ```bash
 cd backend
+pip install -r requirements.txt  # Install test dependencies
 pytest
 ```
+
+**Run with coverage:**
+```bash
+pytest --cov=app --cov-report=html
+```
+
+**Run specific test files:**
+```bash
+pytest tests/test_models.py          # Test Pydantic models
+pytest tests/test_game_logic.py      # Test game logic
+pytest tests/test_algorithmic.py     # Test Minimax AI
+pytest tests/test_session_manager.py # Test session management
+pytest tests/test_endpoints.py       # Test API endpoints
+pytest tests/test_grok_ai.py         # Test Groq AI integration
+```
+
+**Test markers:**
+```bash
+pytest -m unit         # Run only unit tests
+pytest -m integration  # Run only integration tests
+```
+
+### Test Coverage
+
+The test suite covers:
+- ✅ **Pydantic Models**: Validation, edge cases, invalid inputs
+- ✅ **Game Logic**: Moves, wins, draws, turn alternation
+- ✅ **Minimax AI**: Optimal moves, terminal states, perfect play
+- ✅ **Session Manager**: CRUD operations, isolation, persistence
+- ✅ **API Endpoints**: All HTTP methods, error handling
+- ✅ **Groq AI**: Mocked API calls, fallback behavior, error handling
 
 ## 🎨 UI Features
 
