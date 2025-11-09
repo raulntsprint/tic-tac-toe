@@ -10,6 +10,8 @@ from .models import (
 )
 from .session_manager import SessionManager
 from .ai_players.algorithmic import MinimaxPlayer
+from .ai_players.grok_ai import GrokAIPlayer
+from .models import GameMode
 
 
 # Configure logging
@@ -162,14 +164,20 @@ async def make_move(session_id: str, move: MoveRequest) -> GameResponse:
             message="Game over" if game.winner else "It's a draw!",
         )
 
-    # AI's move (Minimax for now)
+    # AI's move - choose based on game mode
     try:
-        ai_player = MinimaxPlayer("O")
-        ai_move = ai_player.get_best_move(game.board)
+        if mode == GameMode.GROK_AI:
+            ai_player = GrokAIPlayer()
+            ai_move = await ai_player.get_best_move(game.board)
+        else:  # GameMode.ALGORITHMIC
+            ai_player = MinimaxPlayer("O")
+            ai_move = ai_player.get_best_move(game.board)
 
         if ai_move:
             game.make_move(ai_move[0], ai_move[1], "O")
-            logger.info(f"AI move: {ai_move} in session {session_id}")
+            logger.info(
+                f"AI move: {ai_move} (mode: {mode.value}) in session {session_id}"
+            )
         else:
             logger.warning(f"No AI move available in session {session_id}")
 
