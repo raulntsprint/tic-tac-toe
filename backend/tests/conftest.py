@@ -3,6 +3,7 @@ import pytest
 from fastapi.testclient import TestClient
 from app.main import app
 from app.session_manager import SessionManager
+from app.models import GameMode
 
 
 @pytest.fixture
@@ -45,4 +46,12 @@ def sample_board_draw():
 def sample_board_in_progress():
     """Return a board with a game in progress."""
     return [["X", "O", ""], ["O", "X", ""], ["", "", ""]]
+
+
+@pytest.fixture
+def new_game_session_id(client: TestClient) -> str:
+    """Create a new game and return its session ID."""
+    response = client.post("/api/game/new", json={"mode": GameMode.ALGORITHMIC.value})
+    assert response.status_code == 200
+    return response.json()["session_id"]
 
