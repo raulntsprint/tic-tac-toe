@@ -53,7 +53,7 @@ cp backend/env.example backend/.env
 
 3. **Start the application**:
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 4. **Access the application**:
